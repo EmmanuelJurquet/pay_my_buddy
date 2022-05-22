@@ -11,7 +11,8 @@ public class UserProfile {
 	
 	private String lastname;
 	
-
+	private String email;
+	
 	private LocalDate birthdate;
 	
 	private String address;
@@ -41,7 +42,14 @@ public class UserProfile {
 	public String getLastname() {
 		return lastname;
 	}
+	
+	public String getEmail() {
+		return email;
+	}
 
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}
@@ -88,11 +96,10 @@ public class UserProfile {
 
 	@Override
 	public String toString() {
-		return "UserProfileModel [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", birthdate="
-				+ birthdate + ", address=" + address + ", phone=" + phone + ", city=" + city + ", zip=" + zip + "]";
+		return "UserProfile [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email
+				+ ", birthdate=" + birthdate + ", address=" + address + ", phone=" + phone + ", city=" + city + ", zip="
+				+ zip + "]";
 	}
-	
-	
 
 
 }

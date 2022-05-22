@@ -1,32 +1,32 @@
 package com.pmb.constants;
 
-public class DataBaseConstants {
+public class DataBaseConstants { 
 
-	public static final String GET_IDENTIFICATION = "SELECT id, 'userEmail','userPassword'  FROM identification, WHERE userEmail = ? userPassword = ? ";
+	public static final String GET_IDENTIFICATION = "SELECT * FROM Identification  WHERE IDN_EMAIL = ? AND IDN_PASSWORD = ? ";
+
+	public static final String GET_IDENTIFICATION_BY_EMAIL = "SELECT * FROM Identification WHERE IDN_EMAIL = ? ";
+
+	public static final String GET_USER_PROFILE_BY_EMAIL_AND_PASSWORD = "SELECT * FROM User JOIN Identification ON USR_FK_IDN = IDN_ID WHERE IDN_EMAIL = ? AND IDN_PASSWORD= ? ";
+
+	public static final String GET_FRIEND_LIST = "SELECT * FROM User JOIN Friend ON FR_USR_PROFILE_ID_RECEIVER = USR_ID WHERE FR_USR_PROFILE_ID_OWNER = ?";
+
+	public static final String VERIFY = "SELECT * FROM Friend WHERE FR_USR_PROFILE_ID_OWNER = ? AND FR_USR_PROFILE_ID_RECEIVER = ?";
 	
-	public static final String GET_IDENTIFICATION_BY_MAIL = "SELECT id FROM identification WHERE userEmail = ? ";
+	public static final String ADD_FRIEND = "INSERT INTO Friend (FR_USR_PROFILE_ID_OWNER, FR_USR_PROFILE_ID_RECEIVER) Values (?,?)";
+
+	public static final String DELETE_FRIEND = "DELETE FROM Friend WHERE FR_USR_PROFILE_ID_OWNER= ? AND FR_USR_PROFILE_ID_RECEIVER= ?";
 	
-	public static final String GET_USER_PROFILE_BY_EMAIL = "SELECT id ,userFirstName, userLastName, birthdate, userEmail,"
-			+ " userAddress,userPhone, userCity, userPostCode FROM User_Profile WHERE userFirstName = ?, userLastName = ?";
+	public static final String PAY_MY_BUDDY = "INSERT INTO Wallet (WAL_BALANCE) Values (?) WHERE USR_EMAIL = ?";
 	
-	public static final String UPDATE_IDENTIFICATION = "UPDATE identification SET userEmail = ?, userPassword = ? ";
+	public static final String PAYMENT = "UPDATE  WALLET  SET WAL_BALANCE =? WHERE  WAL_USR_FK_ID = ? ";
 	
-	public static final String UPDATE_USER_PROFILE = "UPDATE User_Profile SET userFirstName = ?, userLastName=?, birthdate=?,"
-			+ " userEmail=?, userAddress=?,userPhone=?, userCity=?, userPostCode=?";
-	public static final String GET_CONTACTS = "SELECT id , 'firstName', 'lastName' , 'iban', 'email' FROM contatcs WHERE email = ?";
+	public static final String GET_BAL = "SELECT WAL_BALANCE FROM Wallet JOIN  User ON WAL_USR_FK_ID = USR_ID WHERE WAL_ID = ?";
 	
-	public static final String UPDATE_CONTACTS = "UPDATE Contacts SET firstName = ? , lastName = ?, iban = ?, email =?";
-	
-	public static final String ADD_CONTACT = "INSERT  INTO Contacts(firstName,lastName,email,iban) values(?,?,?,?)";
-	
-	public static final String DELETE_CONTACT = "DELETE FROM Contacts WHERE (firstName = ?, lastName = ?)";
-	
-	public static final String GET_BALANCE = "SELECT id, balanceAmount, date FROM Balance WHERE userEmail = ?";
-	
-	public static final String GET_TRANSACTION = "SELECT id, designation, amount, date, ibanTransmitter, ibanReceiver, transmitter, receiver FROM transactions WHERE id = ?";
-	
-	public static final String SAVE_TRANSACTION = "INSERT INTO transaction (id, designation, amount, date, ibanTransmitter, ibanReceiver, transmitter, receiver) values (?,?,?,?,?,?,?,?)";
-	
-	
-}
+	public static final String GET_BALANCE = "SELECT WAL_ID, WAL_BALANCE, WAL_VISA, WAL_EXPIR, WAL_CRYPTO FROM Wallet JOIN User ON WAL_USR_FK_ID = USR_ID WHERE WAL_ID = ?";
+
+	public static final String GET_TRANSACTION = "SELECT *  FROM Transactions JOIN User ON TRA_USR_PROFILE_ID_EMIT = USR_ID WHERE USR_ID = ?";
+											  
+	public static final String SAVE_TRANSACTIONS = "INSERT INTO Transactions(TRA_USR_PROFILE_ID_EMIT,TRA_USR_PROFILE_ID_RECEIV,TRA_DESIGNATION,TRA_DATE,TRA_AMOUNT,TRA_FEE) Values (?,?,?,?,?,?)";
+
+}	
 

@@ -1,20 +1,27 @@
-package com.pmb.config;
+package com.pmb.test.config;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import java.sql.*;
+
+import com.pmb.config.DataBaseConfig;
 
 
-	public class DataBaseConfig {
+public class DataBaseTestConfig extends DataBaseConfig {
 
-	    private static final Logger logger = LogManager.getLogger("DataBaseConfig");
+	
+
+	    private static final Logger logger = LogManager.getLogger("DataBaseTestConfig");
 
 	    public Connection getConnection() throws ClassNotFoundException, SQLException {
 	        logger.info("Create DB connection");
 	        Class.forName("com.mysql.cj.jdbc.Driver");
 	        return DriverManager.getConnection(
-	                "jdbc:mysql://localhost:3306/newpaymybuddy?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC"
-	                 ,"root","Topper247");
+	                "jdbc:mysql://localhost:3306/newpmbtests?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","root","topper247");
 	    }
 
 	    public void closeConnection(Connection con){
@@ -50,4 +57,7 @@ import java.sql.*;
 	        }
 	    }
 	}
+
+	
+	
 

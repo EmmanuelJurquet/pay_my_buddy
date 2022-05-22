@@ -1,6 +1,7 @@
 package com.pmb.model;
+import java.beans.JavaBean;
 import java.time.LocalDate;
-
+@JavaBean
 public class Transactions {
 
 	
@@ -12,13 +13,13 @@ public class Transactions {
 	
 	private LocalDate date;
 	
-	private String ibanTransmitter;
+	private int emmitid;
 	
-	private String ibanReceiver;
+	private int receivid;
 	
-	private UserProfile transmitter;
-	
-	private Contacts receiver;
+	private String receiverfullname;
+
+	private double fee;
 
 	public int getId() {
 		return id;
@@ -52,46 +53,46 @@ public class Transactions {
 		this.date = date;
 	}
 
-	public String getIbanTransmitter() {
-		return ibanTransmitter;
+	public double getFee() {
+		return fee;
 	}
 
-	public void setIbanTransmitter(String ibanTransmitter) {
-		this.ibanTransmitter = ibanTransmitter;
+	public void setFee(double fee) {
+		this.fee = fee;
+	}
+	public int getEmmitid() {
+		return emmitid;
 	}
 
-	public String getIbanReceiver() {
-		return ibanReceiver;
+	public void setEmmitid(int emmitid) {
+		this.emmitid = emmitid;
 	}
 
-	public void setIbanReceiver(String ibanReceiver) {
-		this.ibanReceiver = ibanReceiver;
+	public int getReceivid() {
+		return receivid;
 	}
 
-	public UserProfile getTransmitter() {
-		return transmitter;
+	public void setReceivid(int receivid) {
+		this.receivid = receivid;
 	}
 
-	public void setTransmitter(UserProfile transmitter) {
-		this.transmitter = transmitter;
+	public String getReceiverfullname() {
+		return receiverfullname;
 	}
 
-	public Contacts getReceiver() {
-		return receiver;
-	}
-
-	public void setReceiver(Contacts receiver) {
-		this.receiver = receiver;
+	public void setReceiverfullname(String receiverfullname) {
+		this.receiverfullname = receiverfullname;
 	}
 
 	@Override
 	public String toString() {
 		return "Transactions [id=" + id + ", designation=" + designation + ", amount=" + amount + ", date=" + date
-				+ ", ibanTransmitter=" + ibanTransmitter + ", ibanReceiver=" + ibanReceiver + ", transmitter="
-				+ transmitter + ", receiver=" + receiver + "]";
+				+ ", emmitid=" + emmitid + ", receivid=" + receivid + ", receiverfullname=" + receiverfullname
+				+ ", fee=" + fee + "]";
 	}
-	
-	
+
+
+
 	
 	
 	

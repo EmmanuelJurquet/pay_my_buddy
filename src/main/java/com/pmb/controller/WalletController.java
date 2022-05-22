@@ -10,25 +10,25 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pmb.model.Balance;
-
-import com.pmb.service.BalanceService;
+import com.pmb.model.Wallet;
+import com.pmb.service.WalletService;
 
 @RestController
-public class BalanceController {
+public class WalletController {
 
-	
+
 	@Autowired
-	BalanceService balService;
-	private static final Logger logger = LogManager.getLogger(BalanceController.class);
-	
-	@GetMapping
-	public Balance getBalance (@RequestParam String userEmail) throws ClassNotFoundException, SQLException {
-		logger.info("{}", userEmail, "balance");
-		Balance bal  = balService.getBalance(userEmail);
+	private	WalletService walService;
+	private static final Logger logger = LogManager.getLogger(WalletController.class);
+
+	@GetMapping(value="/wallet")
+	public Wallet getBalance (@RequestParam int walId) throws ClassNotFoundException, SQLException {
+		Wallet bal  = walService.getSold(walId);
+		logger.info("{}", walId, "balance");
 		return bal;
-		
-		
+
 	}
-	
+
+
 }
+

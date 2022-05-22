@@ -3,48 +3,45 @@ package com.pmb.model;
 public class Identification {
 
 	
-	private int Id;
+	private int id;
 	
-	private String userEmail;
+	private String email;
 	
 	
-	private String userPassword;
-
-
-	public String getUserEmail() {
-		return userEmail;
-	}
-
-
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
-	}
-
-
-	public String getUserPassword() {
-		return userPassword;
-	}
-
-
-	public void setUserPassword(String userPassword) {
-		this.userPassword = userPassword;
-	}
+	private String password;
 
 
 	public int getId() {
-		return Id;
+		return id;
 	}
 
 
 	public void setId(int id) {
-		Id = id;
+		this.id = id;
 	}
 
 
-	
+	public String getEmail() {
+		return email;
+	}
 
 
-	
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
+	public String getPassword() {
+		return password;
+	}
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
+
 	
 	
 }
