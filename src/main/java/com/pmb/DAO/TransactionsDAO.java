@@ -40,7 +40,7 @@ public class TransactionsDAO implements ITransactionsDAO{
 				con = dataBaseConfig.getConnection();
 				ps = con.prepareStatement(DataBaseConstants.GET_TRANSACTION);
 				ps.setInt(1, idOwner);
-				
+				logger.info(ps.toString());
 				rs = ps.executeQuery();
 
 				while (rs.next()){
@@ -88,7 +88,7 @@ public class TransactionsDAO implements ITransactionsDAO{
 			ps.setDate(4,Date.valueOf(tra.getDate()));
 			ps.setDouble(5, tra.getAmount());
 			ps.setDouble(6, tra.getFee());
-			logger.debug(ps.toString());
+			logger.info(ps.toString());
 			rs =(ps.executeUpdate() > 0);
 		}	
 

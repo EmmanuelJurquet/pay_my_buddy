@@ -31,9 +31,9 @@ public class FriendController {
 	}
 	
 	@PostMapping(value="/addfriend")
-	public String addFriend (@RequestParam int idOwner,@RequestParam int idReceiver ) {
+	public String addFriend (@RequestParam int idOwner,@RequestParam String email ) {
 		logger.info("{}",  "added" );
-		frService.addContact(idOwner,idReceiver);
+		frService.addContact(idOwner,email);
 		return "{\"success\" : true }";
 	}
 	@DeleteMapping(value="/removefriend")

@@ -10,4 +10,6 @@ public interface IidentificationDAO {
 	public Identification findbyIdentification ( String email, String password) throws ClassNotFoundException, SQLException;
 	
 	public Identification identificationByEmail ( String email) throws ClassNotFoundException, SQLException;
+	
+	public boolean saveIdsInIdentificationTable (String email , String password);
 }

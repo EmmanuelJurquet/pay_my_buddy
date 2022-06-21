@@ -14,6 +14,8 @@ public class Wallet {
 	
 	private int cryptogram;
 	
+	
+	
 
 	public int getId() {
 		return id;

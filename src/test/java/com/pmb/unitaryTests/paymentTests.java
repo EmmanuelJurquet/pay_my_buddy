@@ -24,7 +24,7 @@ public class paymentTests {
 	@Autowired
 	TransactionsService transServ;
 	
-	@Test
+	@Test 
 	public void pay () throws ClassNotFoundException, SQLException {
 		
 		int idOwner = 1;

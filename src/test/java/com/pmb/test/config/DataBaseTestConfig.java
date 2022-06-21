@@ -11,17 +11,17 @@ import org.apache.logging.log4j.Logger;
 import com.pmb.config.DataBaseConfig;
 
 
-public class DataBaseTestConfig extends DataBaseConfig {
+public class DataBaseTestConfig  {
 
-	
-
+		
+		
 	    private static final Logger logger = LogManager.getLogger("DataBaseTestConfig");
 
 	    public Connection getConnection() throws ClassNotFoundException, SQLException {
 	        logger.info("Create DB connection");
 	        Class.forName("com.mysql.cj.jdbc.Driver");
 	        return DriverManager.getConnection(
-	                "jdbc:mysql://localhost:3306/newpmbtests?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","root","topper247");
+	                "jdbc:mysql://localhost:3306/newpmbtests?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","root","Topper247");
 	    }
 
 	    public void closeConnection(Connection con){

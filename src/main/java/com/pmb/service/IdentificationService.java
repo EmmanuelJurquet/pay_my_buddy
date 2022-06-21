@@ -14,13 +14,18 @@ public class IdentificationService {
 	@Autowired
 	private IidentificationDAO idDAO;
 	
+	
+	
+	
 	public Identification findbyIdentification ( String email, String password) throws ClassNotFoundException, SQLException{
 			return idDAO.findbyIdentification(email, password);
 	}		
 	public Identification identificationByEmail (String email) throws ClassNotFoundException, SQLException	{
 			return idDAO.identificationByEmail(email);
 	}
-		
+	public boolean saveIds (String email, String password)  {
+			return idDAO.saveIdsInIdentificationTable(email, password);
+		}
 	}
 	
 	

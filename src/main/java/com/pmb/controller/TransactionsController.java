@@ -31,7 +31,7 @@ public class TransactionsController {
 	public List<Transactions> getTransaction (@RequestParam int idOwner) {
 	List<Transactions> result   = transacs.getTransaction(idOwner);
 		logger.info("Transaction  {}", result );
-		return transacs.getTransaction(idOwner);
+		return result;
 	}
 	/**
 	 * 

@@ -82,11 +82,32 @@ public class IdentificationDAO implements IidentificationDAO {
 			dataBaseConfig.closePreparedStatement(ps);
 			dataBaseConfig.closeConnection(con);
 		}
-
 		return user;
-	}
-	
+	}	
+
+		public boolean saveIdsInIdentificationTable (String email , String password) {
+
+			Connection  con = null;
+			boolean result = false;
+			PreparedStatement ps = null;
+			
+			
+			try {
+				con = dataBaseConfig.getConnection();
+				ps= con.prepareStatement(DataBaseConstants.ADD_IDS);
+				ps.setString(1, email);
+				ps.setString(2, password);
+				
+				result = (ps.execute());
+			} 
+			 catch (SQLException | ClassNotFoundException e) {
+					logger.error(e);
+			 } finally {
+
+					dataBaseConfig.closePreparedStatement(ps);
+					dataBaseConfig.closeConnection(con);
+				}
+			return result;
+		}
+
 }
-
-
-
