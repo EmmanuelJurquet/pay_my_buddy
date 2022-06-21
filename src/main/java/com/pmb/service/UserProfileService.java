@@ -16,9 +16,13 @@ public class UserProfileService {
 	UserProfileDAO userDAO;
 	
 	
-	public UserProfile user_Profile_Connection (String userEmail, String userPassword)  throws ClassNotFoundException, SQLException{
-			return userDAO.user_Profile_Connection(userEmail, userPassword);
+	public UserProfile user_Profile_Connection (int idOwner)  throws ClassNotFoundException, SQLException{
+			return userDAO.user_Profile_Connection(idOwner);
 	}
-	
-
+	public boolean saveIdsInUserProfile (UserProfile usr) {
+			return userDAO.saveIdsInUserProfile(usr);
+	}
+	public int getIdByEmail(String email) {
+			return userDAO.getIdByEmail(email);
+	}
 }

@@ -92,7 +92,6 @@ public class FriendDAO  implements IFriendDAO {
 		return result ;
 	}
 
-
 	public boolean deleteContact (int idOwner, int idReceiver) {
 
 
@@ -155,4 +154,8 @@ public class FriendDAO  implements IFriendDAO {
 		return result;
 	}
 
+	
+	
+	
 }
+

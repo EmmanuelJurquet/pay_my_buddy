@@ -21,9 +21,9 @@ public class UserProfileController {
 	
 		
 	@GetMapping(value="/user_profile")
-	public UserProfile findUserProfile ( @RequestParam String email,@RequestParam String password) throws ClassNotFoundException, SQLException {
-		logger.info("Profile connected:  {}", email);
-		UserProfile  userConnect  = userService.user_Profile_Connection( email, password);
+	public UserProfile findUserProfile ( @RequestParam int idOwner) throws ClassNotFoundException, SQLException {
+		logger.info("Profile connected:  {}", idOwner);
+		UserProfile  userConnect  = userService.user_Profile_Connection( idOwner);
 		return userConnect ; 
 		
 		

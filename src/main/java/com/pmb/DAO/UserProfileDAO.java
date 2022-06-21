@@ -1,6 +1,7 @@
 package com.pmb.DAO;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,22 +25,18 @@ public class UserProfileDAO {
 	
 	
 
-	public UserProfile user_Profile_Connection (String email, String password)  throws ClassNotFoundException, SQLException{
-
-		Connection  con = dataBaseConfig.getConnection();
+	public UserProfile user_Profile_Connection (int idOwner)  {
 
 		UserProfile user = null;
-		if (con!= null) {
-
+		
+			Connection con = null;
 			PreparedStatement ps = null;
 			ResultSet rs = null;
 			try {
 				con = dataBaseConfig.getConnection();
-				ps = con.prepareStatement(DataBaseConstants.GET_USER_PROFILE_BY_EMAIL_AND_PASSWORD);
-				ps.setString(1, email);
-				ps.setString(2, password);
-				logger.debug(ps.toString());
-
+				ps = con.prepareStatement(DataBaseConstants.GET_USER_PROFILE_BY_ID);
+				ps.setInt(1, idOwner);
+				
 				rs = ps.executeQuery();
 
 				if (rs.next()){
@@ -56,9 +53,9 @@ public class UserProfileDAO {
 
 				}
 
-			} catch (SQLException e) {
+			} catch (SQLException | ClassNotFoundException e) {
 				e.printStackTrace();
-				logger.error("An error occured : User could not be found");
+				logger.error(e);
 				
 			}
 			finally {
@@ -66,10 +63,82 @@ public class UserProfileDAO {
 				dataBaseConfig.closePreparedStatement(ps);
 				dataBaseConfig.closeConnection(con);
 			}
+			return user;
+
 		}
-		return user;
+	
+	
+
+	public int getIdByEmail  (String email ) {
+		
+		int result = -1;
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			con = dataBaseConfig.getConnection();
+
+			ps = con.prepareStatement(DataBaseConstants.FIND_ID_BY_EMAIL);
+			ps.setString(1, email);
+			
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				
+				result=rs.getInt("USR_ID");
+				
+			}
+		}
+
+	 catch (SQLException | ClassNotFoundException e) {
+		e.printStackTrace();
+		logger.error(e);
 
 	}
 
+	finally {
+		dataBaseConfig.closeResultSet(rs);
+		dataBaseConfig.closePreparedStatement(ps);
+		dataBaseConfig.closeConnection(con);
+	}
+			return result;
+	}
 	
-}
+	
+	public boolean saveIdsInUserProfile (UserProfile usr) {
+
+				Connection  con = null;
+				boolean result = false;
+				PreparedStatement ps = null;
+				
+				
+				try {
+					con = dataBaseConfig.getConnection();
+					ps= con.prepareStatement(DataBaseConstants.SAVE_USR_PROFILE);
+					ps.setString(1, usr.getFirstname());
+					ps.setString(2, usr.getLastname());
+					ps.setString(3, usr.getEmail());
+					ps.setDate(4,Date.valueOf(usr.getBirthdate()));
+					ps.setString(5,  usr.getAddress());
+					ps.setString(6, usr.getPhone());
+					ps.setString(7, usr.getCity());
+					ps.setString(8, usr.getZip());
+					
+					result = (ps.execute());
+				} 
+				 catch (SQLException | ClassNotFoundException e) {
+						logger.error(e);
+				 } finally {
+
+						dataBaseConfig.closePreparedStatement(ps);
+						dataBaseConfig.closeConnection(con);
+					}
+				return result;
+			}
+			
+			
+		}
+	
+	
+	
+	
+

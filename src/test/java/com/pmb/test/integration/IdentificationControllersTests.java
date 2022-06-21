@@ -20,7 +20,7 @@ import com.pmb.service.IdentificationService;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class Identificationtestscontroller {
+public class IdentificationControllersTests {
 
 	
 	@Autowired
@@ -34,9 +34,10 @@ public class Identificationtestscontroller {
 	public void config() throws ClassNotFoundException, SQLException{
 		
 		Identification test = new Identification();
-		String email = "emmanueljurquet@gmail.com";
-		String password ="nouveaumotdepasse";
-		when (idService.findbyIdentification(email, password)).thenReturn(test);
+		test.setEmail("hanna@gmail.com");
+		test.setPassword("mdp");
+		when(idService.saveIds("hanna@gmail.com","mdp")).thenReturn(true);
+		when(idService.findbyIdentification("hanna@gmail.com", "mdp")).thenReturn(test);
 		
 		
 		
@@ -48,7 +49,7 @@ public class Identificationtestscontroller {
 		
 		try {
             this.mvc.perform(MockMvcRequestBuilders
-                    .get("/identification1")
+                    .get("/identification1?email=hanna@gmail.com&password=mdp")
                     .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isOk());
         } catch (Exception e) {
@@ -61,7 +62,7 @@ public class Identificationtestscontroller {
 		
 		try {
             this.mvc.perform(MockMvcRequestBuilders
-                    .get("/identification2")
+                    .get("/identification2?email=hanna@gmail.com")
                     .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isOk());
         } catch (Exception e) {
