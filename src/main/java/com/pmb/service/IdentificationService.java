@@ -1,7 +1,5 @@
 	package com.pmb.service;
 
-import java.sql.SQLException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.pmb.DAO.IidentificationDAO;
@@ -17,14 +15,14 @@ public class IdentificationService {
 	
 	
 	
-	public Identification findbyIdentification ( String email, String password) throws ClassNotFoundException, SQLException{
+	public Identification findbyIdentification ( String email, String password) {
 			return idDAO.findbyIdentification(email, password);
 	}		
-	public Identification identificationByEmail (String email) throws ClassNotFoundException, SQLException	{
+	public Identification identificationByEmail (String email) {
 			return idDAO.identificationByEmail(email);
 	}
-	public boolean saveIds (String email, String password)  {
-			return idDAO.saveIdsInIdentificationTable(email, password);
+	public boolean saveIds (Identification ident)  {
+			return idDAO.saveIdsInIdentificationTable(ident);
 		}
 	}
 	

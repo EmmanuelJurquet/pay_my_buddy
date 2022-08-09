@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.pmb.config.DataBaseConfig;
@@ -19,17 +20,15 @@ public class WalletDAO implements IWalletDAO{
 	
 	public static final Logger logger = LogManager.getLogger("BalanceDAO");
 	
-	private DataBaseConfig dataBaseConfig = new DataBaseConfig();
+	@Autowired
+	DataBaseConfig dataBaseConfig;
 	
-	public Wallet getSold (int walId)  throws ClassNotFoundException, SQLException {
+	public Wallet getSold (int walId)  {
 		
-		Connection  con = dataBaseConfig.getConnection();
-		
+		Connection  con = null;
 		Wallet balance= null;
-		if (con!= null) {
-
-			PreparedStatement ps = null;
-			ResultSet rs = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
 			try {
 				con = dataBaseConfig.getConnection();
 				ps = con.prepareStatement(DataBaseConstants.GET_BALANCE);
@@ -47,26 +46,26 @@ public class WalletDAO implements IWalletDAO{
 					
 				}
 
-			} catch (SQLException e) {
+			} catch (SQLException | ClassNotFoundException e) {
 				e.printStackTrace();
-				logger.error("An error occured : Wallet could not be found");
-
+				logger.error(e);
+		
 			}
 			finally {
 				dataBaseConfig.closeResultSet(rs);
 				dataBaseConfig.closePreparedStatement(ps);
 				dataBaseConfig.closeConnection(con);
 			}
-		}
+		
 		return balance;
 	}
 	
-	public double getBal (int idOwner) throws ClassNotFoundException, SQLException{
+	public double getBal (int idOwner) {
 		
-	Connection  con = dataBaseConfig.getConnection();
+	Connection  con = null;
+	double balance= -1;
 		
-		double balance= -1;
-		if (con!= null) {
+	
 
 			PreparedStatement ps = null;
 			ResultSet rs = null;
@@ -81,9 +80,9 @@ public class WalletDAO implements IWalletDAO{
 
 				}
 
-			} catch (SQLException e) {
+			} catch (SQLException  | ClassNotFoundException e) {
 				e.printStackTrace();
-				logger.error("An error occured : Wallet could not be found");
+				logger.error(e);
 
 			}
 			finally {
@@ -91,18 +90,15 @@ public class WalletDAO implements IWalletDAO{
 				dataBaseConfig.closePreparedStatement(ps);
 				dataBaseConfig.closeConnection(con);
 			}
-		}	return balance;
+			return balance;
 	}
 	
 	
-	public boolean payment (int idOwner, double amount) throws ClassNotFoundException, SQLException{
+	public boolean payment (Connection connection ,int idOwner, double amount) {
 		
-		Connection  con = dataBaseConfig.getConnection();
+		Connection  con = null;
 		boolean rs =  false;
-		
-		if (con!= null) {
-
-			PreparedStatement ps = null;
+		PreparedStatement ps = null;
 			
 			try {
 				con = dataBaseConfig.getConnection();
@@ -110,21 +106,46 @@ public class WalletDAO implements IWalletDAO{
 				ps.setInt(2,idOwner);
 				ps.setDouble(1, amount);
 				rs =(ps.executeUpdate() > 0);
-				
 				}	
 	
-
-			 catch (SQLException e) {
+			 catch (SQLException | ClassNotFoundException e) {
 				e.printStackTrace();
-				logger.error("An error occured : Wallet could not be found");
-
+				logger.error(e);
 			}
 			finally {
 				
 				dataBaseConfig.closePreparedStatement(ps);
 				dataBaseConfig.closeConnection(con);
 			}
-		}	return rs;
+			return rs;
 	}
-	
+	public boolean saveWallet (Wallet wal) {
+		Connection  con = null;
+		boolean result = false;
+		PreparedStatement ps = null;
+		
+		try {
+			con = dataBaseConfig.getConnection();
+			ps= con.prepareStatement(DataBaseConstants.SAVE_WAL);
+			ps.setInt(1, wal.getId());
+			ps.setDouble(2, wal.getBalance());
+			ps.setString(3, wal.getVisacardnumber());
+			ps.setString(4, wal.getExpiration());
+			ps.setInt(5, wal.getCryptogram());
+			
+			result=(ps.execute());
+			
+			result = true;
+			
+			}
+			 catch (SQLException | ClassNotFoundException e){
+				 e.printStackTrace();
+					logger.error(e);
+			 } finally {
+
+					dataBaseConfig.closePreparedStatement(ps);
+					dataBaseConfig.closeConnection(con);
+				}
+			return result;
+		}
 }

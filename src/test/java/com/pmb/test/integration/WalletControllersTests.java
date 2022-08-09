@@ -13,53 +13,49 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import com.pmb.model.Identification;
-import com.pmb.service.IdentificationService;
+import com.pmb.model.Wallet;
+import com.pmb.service.WalletService;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class IdentificationControllersTests {
-
+public class WalletControllersTests {
 	
 	@Autowired
     MockMvc mvc;
 	
 	@MockBean
-	IdentificationService idService;
-	
+	WalletService walService;
 	
 	@BeforeEach
-	public void config() {
+	public void config () {
 		
-		Identification test = new Identification();
-		test.setEmail("hanna@gmail.com");
-		test.setPassword("mdp");
-		// Mock = isoler le controller des services
+		Wallet test = new Wallet();
+		test.setBalance(100.00);
+		test.setId(5);
+		test.setVisacardnumber("1234");
+		test.setExpiration("0/00/00");
+		test.setCryptogram(100);
 		
-		// mock between bdd et service	
+		when(walService.getSold(5)).thenReturn(test);
+		when(walService.getBal(5)).thenReturn(100.00);
 		
 	}
-		// Controler que les exigences en termes de params soient remplies
 	@Test
-	public void getId () {
-	
-		
+	public void getSold () {
 		try {
             this.mvc.perform(MockMvcRequestBuilders
-                    .get("/identification1?email=hanna@gmail.com&password=mdp")
+                    .get("/wallet?walId=5")
                     .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isOk());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 	}
-		
-	@Test 
-	public void getIdByEmail() {
-		
+	@Test
+	public void getBal() {
 		try {
             this.mvc.perform(MockMvcRequestBuilders
-                    .get("/identification2?email=hanna@gmail.com")
+                    .get("/wallet?idOwner=5")
                     .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isOk());
         } catch (Exception e) {
@@ -67,5 +63,4 @@ public class IdentificationControllersTests {
         }
 	}
 }
-	
 

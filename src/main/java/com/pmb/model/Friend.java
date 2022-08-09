@@ -6,13 +6,15 @@ public class Friend {
 	
 	private int id;
 	
+	private int identificationId;
+	
 	private String fullName;
 
+	private String email; 
+	
 	public int getId() {
 		return id;
 	}
-	public String email; 
-	
 	
 	public void setId(int id) {
 		this.id = id;
@@ -28,7 +30,8 @@ public class Friend {
 
 	@Override
 	public String toString() {
-		return "Friend [id=" + id + ", fullName=" + fullName + ", email=" + email + "]";
+		return "Friend [id=" + id + ", identificationId=" + identificationId + ", fullName=" + fullName + ", email="
+				+ email + "]";
 	}
 
 	public String getFullName() {
@@ -37,6 +40,14 @@ public class Friend {
 
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
+	}
+
+	public int getIdentificationId() {
+		return identificationId;
+	}
+
+	public void setIdentificationId(int identificationId) {
+		this.identificationId = identificationId;
 	}
 
 }

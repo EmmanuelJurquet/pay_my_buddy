@@ -1,69 +1,82 @@
 package com.pmb.test.integration;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
-
-import java.sql.SQLException;
 import java.time.LocalDate;
 
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.TestPropertySource;
 
 import com.pmb.model.UserProfile;
 import com.pmb.service.UserProfileService;
 
+@TestPropertySource(locations="classpath:tests.properties")
 @SpringBootTest
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class UserProfileTests {
 
-	
-	@MockBean
+
+	@Autowired
 	private UserProfileService usrServ;
-	
+
 	@Test
-	public void getUserProfile () throws ClassNotFoundException, SQLException {
+	@Order(1)
+	public void saveUserProfile() {
 		UserProfile test = new UserProfile();
-		test.setId(5);
+		
+		test.setIdentificationId(4);
 		test.setFirstname("Hanna");
 		test.setLastname("Jurquet");
+		test.setAddress("middle of nowhere");
 		test.setEmail("hanna@gmail.com");
 		test.setBirthdate(LocalDate.now());
 		test.setAddress("chezpapa");
 		test.setPhone("none");
 		test.setCity("paris");
 		test.setZip("75013");
+
+		usrServ.saveIdsInUserProfile(test);
 		
-		when(usrServ.saveIdsInUserProfile(test)).thenReturn(false);
-		when(usrServ.user_Profile_Connection(5)).thenReturn(test);
-		assertEquals(usrServ.saveIdsInUserProfile(test), false);
-		assertEquals(usrServ.user_Profile_Connection(5), test);
+		assertEquals(usrServ.saveIdsInUserProfile(test),true);
+		
+		
+		
+		
 	}
 	
 	@Test
-	public void saveUserProfile () {
+	@Order(2)
+	public void getUserProfile () {
 		
-		UserProfile test = new UserProfile();
-		test.setId(5);
-		test.setFirstname("Hanna");
-		test.setLastname("Jurquet");
-		test.setEmail("hanna@gmail.com");
-		test.setBirthdate(LocalDate.now());
-		test.setAddress("chezpapa");
-		test.setPhone("none");
-		test.setCity("paris");
-		test.setZip("75013");
+
+		UserProfile test = usrServ.user_Profile_Connection(4);
 		
-		when(usrServ.saveIdsInUserProfile(test)).thenReturn(false);
-		assertEquals(usrServ.saveIdsInUserProfile(test), false);
 		
+		assertNotNull(test);
+
+
 	}
+
+	
+	
 	@Test
+	@Order(3)
 	public void getIdByEmail () {
-		
+
 		String email = "hanna@gmail.com";
 		
-		when(usrServ.getIdByEmail(email)).thenReturn(5);
-		assertEquals(usrServ.getIdByEmail(email),5);
+		usrServ.getIdByEmail(email);
+		
+		assertEquals(usrServ.getIdByEmail(email),4);
+		
+		
+		
+	
 
 	}
 }

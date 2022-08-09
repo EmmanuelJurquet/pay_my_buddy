@@ -4,19 +4,25 @@ public class DataBaseConstants {
 
 	public static final String GET_IDENTIFICATION = "SELECT * FROM Identification  WHERE IDN_EMAIL = ? AND IDN_PASSWORD = ? ";
 	
+	public static final String GET_FIRSTNAME ="SELECT USR_F_NAME FROM User JOIN  Identification ON USR_FK_IDN = IDN_ID WHERE IDN_ID = ?";
+	
+	public static final String GET_PROFILE="SELECT USR_F_NAME, USR_L_NAME,USR_EMAIL, USR_BIRTH, USR_ADDR,USR_PHONE, USR_CITY,USR_ZIP FROM User JOIN  Identification ON USR_FK_IDN = IDN_ID WHERE IDN_ID = ?";
+	
 	public static final String ADD_IDS = "INSERT INTO Identification (IDN_EMAIL, IDN_PASSWORD) Values(?,?)";
 	
 	public static final String GET_IDENTIFICATION_BY_EMAIL = "SELECT * FROM Identification WHERE IDN_EMAIL = ? ";
 	
-	public static final String SAVE_USR_PROFILE ="INSERT INTO User (USR_F_NAME, USR_L_NAME, USR_EMAIL, USR_BIRTH, USR_ADDR, USR_PHONE, USR_CITY, USR_ZIP) Values (?,?,?,?,?,?,?,?)"; 
+	public static final String FIND_ID_BY_EMAIL = "SELECT * FROM Identification JOIN User ON USR_FK_IDN = IDN_ID  WHERE IDN_EMAIL= ?";
+	
+	public static final String SAVE_USR_PROFILE ="INSERT INTO User ( USR_FK_IDN, USR_F_NAME, USR_L_NAME, USR_EMAIL, USR_BIRTH, USR_ADDR, USR_PHONE, USR_CITY, USR_ZIP) Values (?,?,?,?,?,?,?,?,?)"; 
+	
+	public static final String SAVE_WAL = "INSERT INTO Wallet (WAL_USR_FK_ID,WAL_BALANCE, WAL_VISA, WAL_EXPIR, WAL_CRYPTO) Values (?,?,?,?,?)";
 	
 	public static final String GET_USER_PROFILE_BY_ID = "SELECT * FROM User JOIN Identification ON USR_FK_IDN = IDN_ID WHERE IDN_ID = ? ";
 
 	public static final String GET_FRIEND_LIST = "SELECT * FROM User JOIN Friend ON FR_USR_PROFILE_ID_RECEIVER = USR_ID WHERE FR_USR_PROFILE_ID_OWNER = ?";
 
 	public static final String VERIFY = "SELECT * FROM Friend WHERE FR_USR_PROFILE_ID_OWNER = ? AND FR_USR_PROFILE_ID_RECEIVER = ?";
-	
-	public static final String FIND_ID_BY_EMAIL = "SELECT * FROM Identification JOIN User ON USR_FK_IDN = IDN_ID  WHERE IDN_EMAIL= ?";
 	
 	public static final String ADD_FRIEND = "INSERT INTO Friend (FR_USR_PROFILE_ID_OWNER, FR_USR_PROFILE_ID_RECEIVER) Values (?,?)";
 

@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pmb.DAO.IFriendDAO;
-import com.pmb.DAO.IUserProfileDAO;
 import com.pmb.DAO.UserProfileDAO;
 import com.pmb.model.Friend;
 
@@ -23,7 +22,6 @@ public class FriendService  {
 	public List<Friend> getFriendList  (int idOwner)   {
 		return contDAO.getFriendList(idOwner);
 	}
-	
 	
 	public boolean addContact (int idOwner, String email) {
 		

@@ -28,6 +28,7 @@ public class Transactions {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
 
 	public String getDesignation() {
 		return designation;
@@ -90,6 +91,8 @@ public class Transactions {
 				+ ", emmitid=" + emmitid + ", receivid=" + receivid + ", receiverfullname=" + receiverfullname
 				+ ", fee=" + fee + "]";
 	}
+
+	
 
 
 

@@ -1,16 +1,20 @@
 package com.pmb.DAO;
 
-import java.sql.SQLException;
+import java.sql.Connection;
+
+import org.springframework.stereotype.Repository;
 
 import com.pmb.model.Wallet;
 
+@Repository
 public interface IWalletDAO {
 	
-	public Wallet getSold (int idOwner)  throws ClassNotFoundException, SQLException;
-
-	public double getBal (int idOwner) throws ClassNotFoundException, SQLException;
+	public Wallet getSold (int walId);
 	
-	public boolean payment (int idOwner, double amount) throws ClassNotFoundException, SQLException;
+	public double getBal (int idOwner);
 	
+	public boolean payment (Connection connection, int idOwner, double amount);
+	
+	public boolean saveWallet (Wallet wal);
 	
 }

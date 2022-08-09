@@ -1,7 +1,5 @@
 package com.pmb.controller;
 
-import java.sql.SQLException;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,15 +19,20 @@ public class UserProfileController {
 	
 		
 	@GetMapping(value="/user_profile")
-	public UserProfile findUserProfile ( @RequestParam int idOwner) throws ClassNotFoundException, SQLException {
+	public UserProfile findUserProfile ( @RequestParam int idOwner)  {
 		logger.info("Profile connected:  {}", idOwner);
 		UserProfile  userConnect  = userService.user_Profile_Connection( idOwner);
-		return userConnect ; 
-		
-		
+		return userConnect ; 	
 	}
-}
+	
+	
+	@GetMapping(value="/get_firstname")
+	public String getFirstName (@RequestParam int id) {
+		String firstName = userService.getUserFirstName(id);
+		return firstName;
+	}
 
+}
 	
 	
 	

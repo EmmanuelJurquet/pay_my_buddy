@@ -1,7 +1,5 @@
 package com.pmb.service;
 
-import java.sql.SQLException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +14,11 @@ public class UserProfileService {
 	UserProfileDAO userDAO;
 	
 	
-	public UserProfile user_Profile_Connection (int idOwner)  throws ClassNotFoundException, SQLException{
+	public UserProfile user_Profile_Connection (int idOwner) {
 			return userDAO.user_Profile_Connection(idOwner);
+	}
+	public String getUserFirstName ( int id) {
+			return userDAO.getUserFirstName(id);
 	}
 	public boolean saveIdsInUserProfile (UserProfile usr) {
 			return userDAO.saveIdsInUserProfile(usr);

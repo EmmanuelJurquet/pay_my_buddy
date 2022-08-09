@@ -1,47 +1,58 @@
 package com.pmb.test.integration;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
+
 import java.sql.SQLException;
+
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.TestPropertySource;
+
 import com.pmb.model.Identification;
 import com.pmb.service.IdentificationService;
 
 
+@TestPropertySource(locations="classpath:tests.properties")
 @SpringBootTest
 public class IdentificationTests {
 
 
-	@MockBean
+	@Autowired
 	private IdentificationService idServ;
 	
+	
 	@Test
-	public void findByIdentification () throws ClassNotFoundException, SQLException {
-	
+	@Order(1)
+	public void findByIdentification () {
+		
 		Identification test = new Identification();
-	
+		
 		test.setEmail("hanna@gmail.com");
 		test.setPassword("mdp");
 		
-		when(idServ.saveIds("hanna@gmail.com", "mdp")).thenReturn(false, false);
-		when(idServ.findbyIdentification("hanna@gmail.com", "mdp")).thenReturn(test);
-		assertEquals(idServ.saveIds("hanna@gmail.com", "mdp"), false);
-		assertEquals(idServ.findbyIdentification("hanna@gmail.com", "mdp"), test);
+		idServ.saveIds(test);
+		
+		Identification test2 = 	idServ.findbyIdentification("hanna@gmail.com", "mdp");
+		
+		assertEquals(test.getEmail(), test2.getEmail());
 		
 	}
 	@Test
+	@Order(2)
 	public void findByEmail () throws ClassNotFoundException, SQLException {
-		Identification test = new Identification();
 		
-		test.setEmail("hanna@gmail.com");
-		when(idServ.identificationByEmail("hanna@gmail.com")).thenReturn(test);
 		
-		assertEquals(idServ.identificationByEmail("hanna@gmail.com"), test);
 		
+		
+		Identification test = idServ.identificationByEmail("hanna@gmail.com");
+		
+		assertNotNull(test);
 		
 	}
+	
 }
 	
 	

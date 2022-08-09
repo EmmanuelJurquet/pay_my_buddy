@@ -6,6 +6,8 @@ public class Wallet {
 	
 	private int id; 
 	
+	private  int identificationId; 
+	
 	public double balance;
 	
 	private String visacardnumber;
@@ -61,6 +63,14 @@ public class Wallet {
 	public String toString() {
 		return "Wallet [balance=" + balance + ", visacardnumber=" + visacardnumber + ", expiration=" + expiration
 				+ ", cryptogram=" + cryptogram + "]";
+	}
+
+	public int getIdentificationId() {
+		return identificationId;
+	}
+
+	public void setIdentificationId(int identificationId) {
+		this.identificationId = identificationId;
 	}
 
 }

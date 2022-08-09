@@ -1,8 +1,6 @@
 package com.pmb.controller;
 
 
-import java.sql.SQLException;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +20,20 @@ public class WalletController {
 	private static final Logger logger = LogManager.getLogger(WalletController.class);
 
 	@GetMapping(value="/wallet")
-	public Wallet getBalance (@RequestParam int walId) throws ClassNotFoundException, SQLException {
-		Wallet bal  = walService.getSold(walId);
+	public double getBalance (@RequestParam int walId) {
+		double bal  = walService.getBal(walId);
 		logger.info("{}", walId, "balance");
 		return bal;
 
 	}
+	
+	@GetMapping(value="/wallet2")
+	public Wallet getSold (@RequestParam int idOwner)  {
+		Wallet bal  = walService.getSold(idOwner);
+		logger.info("{}",idOwner, "balance");
+		return bal;
 
+	}
 
 }
 

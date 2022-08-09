@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.pmb.config.DataBaseConfig;
@@ -17,7 +18,8 @@ import com.pmb.model.Identification;
 public class IdentificationDAO implements IidentificationDAO {
 
 	public static final Logger logger = LogManager.getLogger("IdentificationDAO");
-	private DataBaseConfig dataBaseConfig = new DataBaseConfig();
+	@Autowired
+	DataBaseConfig dataBaseConfig;
 	
 
 	public Identification findbyIdentification ( String email, String password ) {
@@ -43,7 +45,7 @@ public class IdentificationDAO implements IidentificationDAO {
 			}
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
-			logger.error("An error occured: Cannot connect to the application");
+			logger.error(e);
 		}
 		finally {
 			dataBaseConfig.closeResultSet(rs);
@@ -74,7 +76,8 @@ public class IdentificationDAO implements IidentificationDAO {
 			}
 
 		} catch (SQLException | ClassNotFoundException e) {
-			logger.error("An error occured: Cannot connect to the application");
+			e.printStackTrace();
+			logger.error(e);
 
 		}
 		finally {
@@ -85,7 +88,7 @@ public class IdentificationDAO implements IidentificationDAO {
 		return user;
 	}	
 
-		public boolean saveIdsInIdentificationTable (String email , String password) {
+		public boolean saveIdsInIdentificationTable (Identification ident) {
 
 			Connection  con = null;
 			boolean result = false;
@@ -95,12 +98,13 @@ public class IdentificationDAO implements IidentificationDAO {
 			try {
 				con = dataBaseConfig.getConnection();
 				ps= con.prepareStatement(DataBaseConstants.ADD_IDS);
-				ps.setString(1, email);
-				ps.setString(2, password);
+				ps.setString(1, ident.getEmail());
+				ps.setString(2, ident.getPassword());
 				
 				result = (ps.execute());
 			} 
-			 catch (SQLException | ClassNotFoundException e) {
+			 catch (SQLException | ClassNotFoundException e){
+				 e.printStackTrace();
 					logger.error(e);
 			 } finally {
 

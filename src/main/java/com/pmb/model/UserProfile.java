@@ -7,6 +7,8 @@ public class UserProfile {
 
 	private int id;
 	
+	private int identificationId;
+	
 	private String firstname;
 	
 	private String lastname;
@@ -99,6 +101,14 @@ public class UserProfile {
 		return "UserProfile [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email
 				+ ", birthdate=" + birthdate + ", address=" + address + ", phone=" + phone + ", city=" + city + ", zip="
 				+ zip + "]";
+	}
+
+	public int getIdentificationId() {
+		return identificationId;
+	}
+
+	public void setIdentificationId(int identificationId) {
+		this.identificationId = identificationId;
 	}
 
 

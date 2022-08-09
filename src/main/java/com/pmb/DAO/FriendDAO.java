@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.pmb.config.DataBaseConfig;
 import com.pmb.constants.DataBaseConstants;
@@ -20,7 +21,8 @@ public class FriendDAO  implements IFriendDAO {
 
 
 	public static final Logger logger = LogManager.getLogger("ContactsDAO");
-	private DataBaseConfig dataBaseConfig = new DataBaseConfig();
+	@Autowired
+	DataBaseConfig dataBaseConfig;
 
 
 
@@ -49,7 +51,7 @@ public class FriendDAO  implements IFriendDAO {
 			}
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
-			logger.error("An error occured : Contacts could not be found");
+			logger.error(e);
 
 		}
 		finally {
@@ -72,12 +74,12 @@ public class FriendDAO  implements IFriendDAO {
 		
 		try {
 			con = dataBaseConfig.getConnection();
-			//préparer la requète 
+			// prepare the request 
 			ps = con.prepareStatement(DataBaseConstants.ADD_FRIEND);
-			//édition des values dans la requète
+			// set  values  in request
 			ps.setInt(1,idOwner);
 			ps.setInt(2, idReceiver);
-
+			//request execution
 			result = (ps.execute());
 
 		} catch (SQLException | ClassNotFoundException e) {
@@ -143,7 +145,7 @@ public class FriendDAO  implements IFriendDAO {
 			
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
-			logger.error("An error occured : Contacts could not be found");
+			logger.error(e);
 
 		}
 		finally {
