@@ -7,9 +7,8 @@
 - registration
 - add other users to contact list 
 - remove users from contact list
-- send money to other users
-- send money to personal bank account
-- add money from personal bank account
+- send and receive money to/from other users
+
 
 **Data Base Structure**
 ![ModèleDonnées.jpg](pay_my_buddy_/src/main/resources/static/modelPmb.png)
