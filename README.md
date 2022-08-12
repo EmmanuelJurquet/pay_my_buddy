@@ -11,10 +11,10 @@
 
 
 **Data Base Structure**
-![ModèleDonnées.jpg](pay_my_buddy_/src/main/resources/static/modelPmb.png)
+![ModèleDonnées.jpg](pay_my_buddy/src/main/resources/static/modelPmb.png)
 
 **Class model diagram**
-![DiagrammeClasse.jpg](pay_my_buddy_/src/main/resources/static/diagClassesPmb.jpg)
+![DiagrammeClasse.jpg](pay_my_buddy/src/main/resources/static/diagClassesPmb.jpg)
 
 **Installation:**
 
