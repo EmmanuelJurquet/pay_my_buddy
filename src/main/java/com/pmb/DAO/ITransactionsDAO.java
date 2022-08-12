@@ -15,5 +15,7 @@ public interface ITransactionsDAO {
 	public List<Transactions> getTransaction (int idOwner) ;
 	
 	public boolean saveTransactions (Connection connection, Transactions tra);
+	
+	public boolean payment (int idOwner, double amount);
 }
 
